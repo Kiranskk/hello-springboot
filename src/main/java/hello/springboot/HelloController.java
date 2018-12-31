@@ -22,7 +22,7 @@ public class HelloController {
     @RequestMapping("/hellosort")
     public String sort(String[] arr) {
 
-        List list = Arrays.asList(arr);
+        List<String> list = Arrays.asList(arr);
 
         System.out.println("Input array List " + list);
 
