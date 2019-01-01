@@ -56,16 +56,23 @@ public class HelloController {
       
       while(swapped){
           
-          swapped= false;
+          swapped=false;
           j++;
+          System.out.println("====== while loop times "+j+" scanning array till size "+(arr.length-j));
           for(int i=0; i<arr.length-j; i++){
-                      
+              System.out.println("arr["+i+"] :"+arr[i]);
+              System.out.println("arr["+(i+1)+"] :"+arr[i+1]); 
               if(arr[i] > arr[i+1]){
-                  tmp= arr[i];
+                  System.out.println("arr["+i+"] > "+"arr["+(i+1)+"] is true");
+                  tmp=arr[i];
                   arr[i]=arr[i+1];
-                  arr[i]=tmp;
+                  arr[i+1]=tmp;
                   swapped=true;
+                  System.out.println("swapped "+swapped);
+                  System.out.println("arr["+i+"] :"+arr[i]);
+                  System.out.println("arr["+(i+1)+"] :"+arr[i+1]); 
               }
+              System.out.println("====== comparing next element in array ====");
           }
           
       }
@@ -78,7 +85,7 @@ public class HelloController {
       
       
        
-       return " Bubble Sort  Result "+sortedArr;
+       return "Bubble Sort  Result "+sortedArr;
        
        }else{
            
