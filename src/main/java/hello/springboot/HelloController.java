@@ -44,6 +44,8 @@ public class HelloController {
 
     if(sortingType.equals(SortingType.BUBBLE_SORT)){
  
+     long startTime = System.currentTimeMillis();
+ 
      int[] arr = new int[strArr.length];
  
      for(int s=0;s<strArr.length;s++){
@@ -83,9 +85,9 @@ public class HelloController {
         sortedArr.add(String.valueOf(arr[a]));  
       }
       
-      
+      long endTime = System.currentTimeMillis();
        
-       return "Bubble Sort  Result "+sortedArr;
+       return "Bubble Sort Result "+sortedArr+" Elapsed time "+(endTime-startTime) +" millis for array size "+(arr.length);
        
        }else{
            
