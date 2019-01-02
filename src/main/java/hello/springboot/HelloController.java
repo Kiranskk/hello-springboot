@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
 public class HelloController {
@@ -107,5 +110,29 @@ public class HelloController {
         
         }
     }
+
+    @RequestMapping("/hellosortbyrange")
+    public String sortByRange(int range,SortingType sortingType) {
+        
+        Set<String> randomNumSet = new HashSet<String>();
+        
+        String[] arr = new String[range];
+        
+        for(int i=0;i<range;i++){
+            int randomNum = ThreadLocalRandom.current().nextInt(0, range+1);
+            arr[i] = String.valueOf(randomNum);
+            randomNumSet.add(String.valueOf(randomNum));
+            
+        }
+
+        System.out.println("random input array "+Arrays.asList(arr));
+        System.out.println("random numbers set input "+randomNumSet);
+        
+        //Arrays.asList(arr)
+        return "Random input array "+randomNumSet +" "+ sortByType(randomNumSet.toArray(new String[randomNumSet.size()]), sortingType);
+        
+    }
+        
+    
     
 }
