@@ -44,10 +44,10 @@ public class HelloController {
     
     @RequestMapping("/hellosortbytype")
     public String sortByType(String[] strArr,SortingType sortingType) {
-
+    
+    long startTime = System.currentTimeMillis();
+    
     if(sortingType.equals(SortingType.BUBBLE_SORT)){
- 
-     long startTime = System.currentTimeMillis();
  
      int[] arr = new int[strArr.length];
  
@@ -88,26 +88,46 @@ public class HelloController {
         sortedArr.add(String.valueOf(arr[a]));  
       }
       
-      long endTime = System.currentTimeMillis();
+       long endTime = System.currentTimeMillis();
        
        return "Bubble Sort Result "+sortedArr+" Elapsed time "+(endTime-startTime) +" millis for array size "+(arr.length);
        
-       }else{
+       }else if (sortingType.equals(SortingType.DEFAULT_API_SORT)){
            
         List<String> list = Arrays.asList(strArr);
 
         System.out.println("Input array List " + list);
 
-        Collections.sort(list);
-        
-        System.out.println("Collections Sorted list " + list);
-        
-        Arrays.sort(strArr);
+        List<Integer> intList = new ArrayList<>(strArr.length);
 
-        System.out.println("Input array sort " + Arrays.asList(strArr));
+        //int[] arr = new int[strArr.length];
+
+        for (int s = 0; s < strArr.length; s++) {
+            //arr[s] = Integer.parseInt(strArr[s]);
+            intList.add(Integer.parseInt(strArr[s]));
+        }
+
+        //Collections.sort(list);
         
-        return "Default Collections Sorted Array " + list;
+        //System.out.println("Collections Sorted list " + list);
         
+        Collections.sort(intList);
+        
+        System.out.println("Collections Sorted int list " + intList);
+        
+        //Arrays.sort(strArr);
+        //System.out.println("Input String array sort " + Arrays.asList(strArr));
+
+        //Arrays.sort(arr);
+        //System.out.println("Input int array sort " + Arrays.asList(arr));
+        
+        long endTime = System.currentTimeMillis();
+        
+        return "Default Collections Sorted Array " + intList+" Elapsed time "+(endTime-startTime) +" millis for array size "+(strArr.length);
+        
+        }
+        else{
+            return "Invalid Sorting type";
         }
     }
 
