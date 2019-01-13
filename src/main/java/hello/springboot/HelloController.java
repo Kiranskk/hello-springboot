@@ -125,6 +125,40 @@ public class HelloController {
         
         return "Default Collections Sorted Array " + intList+" Elapsed time "+(endTime-startTime) +" millis for array size "+(strArr.length);
         
+        }else if(sortingType.equals(SortingType.QUICK_SORT)){
+            
+            int[] arr = new int[strArr.length];
+
+            for (int s = 0; s < strArr.length; s++) {
+                arr[s] = Integer.parseInt(strArr[s]);
+            }
+            
+            int pivot = arr[arr.length/2];
+            
+            System.out.println("Pivot element "+pivot);
+            
+            int[] lowArr = new int[arr.length];
+            int[] highArr = new int[arr.length];
+
+            int l=0;
+            int h=0;
+
+            for(int i=0;i<arr.length;i++){
+                
+                if(arr[i]>pivot){
+                    highArr[h]=arr[i];
+                    h++;
+                }else if(arr[i]<pivot){
+                    lowArr[l] = arr[i];
+                    l++;
+                }
+                
+            }
+            
+            System.out.println("low arr "+Arrays.toString(lowArr));
+            System.out.println("high arr "+Arrays.toString(highArr));
+            
+            return "Quick Sort not fully ready less arr "+Arrays.toString(lowArr)+" Pivot "+pivot +" high arr "+Arrays.toString(highArr);
         }
         else{
             return "Invalid Sorting type";
