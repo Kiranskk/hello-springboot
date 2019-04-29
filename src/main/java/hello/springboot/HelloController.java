@@ -187,6 +187,46 @@ public class HelloController {
         
     }
         
-    
+    @RequestMapping("/helloguessvalue")
+    public String guessValue(int value) {
+        
+        Set<String> randomNumSet = new HashSet<String>();
+        
+        //if(value>=1000 && value<10000) 
+        
+        String[] arr = new String[value];
+        int attempt = 0;
+        while(true){
+            
+           int randomNum = ThreadLocalRandom.current().nextInt(1000, 10000);//
+            //arr[i] = String.valueOf(randomNum);
+            randomNumSet.add(String.valueOf(randomNum));
+            if(randomNum==value) {
+                System.out.println("=== Guessed the value == "+randomNum +"== attempt : "+attempt);
+                return "correct guesss on attempt "+attempt + " Values " +randomNumSet;
+            }
+            attempt++;
+        }
+        
+        /*for(int i=0;i<40;i++){
+            int randomNum = ThreadLocalRandom.current().nextInt(1000, 10000);//
+            arr[i] = String.valueOf(randomNum);
+            randomNumSet.add(String.valueOf(randomNum));
+            if(randomNum==value) {
+                System.out.println("=== Guessed the value == "+randomNum );
+                return "correct guesss "+randomNumSet;
+            }
+
+        }*/
+
+        //System.out.println("random input array "+Arrays.asList(arr));
+        //System.out.println("random numbers set input "+randomNumSet);
+        
+        
+        //return "guesss sample"+randomNumSet;
+        //Arrays.asList(arr)
+        //return "Random input array "+randomNumSet +" "+ sortByType(randomNumSet.toArray(new String[randomNumSet.size()]), "GuessValue");
+        
+    }
     
 }
