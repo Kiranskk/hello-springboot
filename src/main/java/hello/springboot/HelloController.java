@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -227,6 +228,74 @@ public class HelloController {
         //Arrays.asList(arr)
         //return "Random input array "+randomNumSet +" "+ sortByType(randomNumSet.toArray(new String[randomNumSet.size()]), "GuessValue");
         
+    }
+    
+    @RequestMapping("/helloguesscode")
+    public String guessCode(int secret,int maxTries) {
+        
+        Set<Integer> randomNumSet = new HashSet<Integer>();
+        
+        HashMap<Integer,Integer> guessScoreMap = new HashMap<Integer,Integer>();
+        
+        int initialGuess = 1122;
+        
+        randomNumSet.add(initialGuess);
+        
+        for(int i=0;i<1300;i++){
+            int randomNum = ThreadLocalRandom.current().nextInt(1000, 10000);//
+            randomNumSet.add(randomNum);
+        }
+
+        String[] arr = new String[secret];
+        int attempt = 0;
+        int guess = initialGuess;
+        while(attempt <= maxTries){
+           
+           if(attempt>0 && randomNumSet.iterator().hasNext()) {
+               guess = randomNumSet.iterator().next();
+            }
+           
+            if(guess==secret) {
+                System.out.println("=== Guessed the value == "+guess +"== attempt : "+attempt);
+                return "correct guesss on attempt "+attempt + " Values " +randomNumSet;
+                //break;
+            }
+           
+           int score = getScore(guess,secret);
+           
+           if(score==40) {
+                System.out.println("=== Guessed the value == "+guess +"== attempt : "+attempt);
+                return "correct guesss on attempt "+attempt + " Values " +randomNumSet;
+                
+            }else if(score > 0) {
+                guessScoreMap.put(guess, score);
+            }else{
+                System.out.println("Got No Score Attempting Again..");
+                randomNumSet.remove(guess);
+            }
+            attempt++;
+        }
+        
+        
+        //System.out.println("random input array "+Arrays.asList(arr));
+        //System.out.println("random numbers set input "+randomNumSet);
+        
+        
+        //return "guesss sample"+randomNumSet;
+        //Arrays.asList(arr)
+        //return "Random input array "+randomNumSet +" "+ sortByType(randomNumSet.toArray(new String[randomNumSet.size()]), "GuessValue");
+        return "testing..guessscoreMap"+guessScoreMap;
+    }
+    
+    private int getScore(int guess,int secret){
+        if(guess==secret) return 40;
+        else if(guess==1122){
+            return 1;
+        }else if(guess<secret){
+            return 2;            
+        }else{
+           return 0; 
+        }
     }
     
 }
