@@ -30,7 +30,7 @@ public class HelloController {
 
         List<String> list = Arrays.asList(arr);
 
-        System.out.println("Input array List " + list);
+        System.out.println("Input array list " + list);
 
         Collections.sort(list);
         
