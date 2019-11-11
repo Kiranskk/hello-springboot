@@ -136,7 +136,7 @@ public class HelloController {
             
             int pivot = arr[arr.length/2];
             
-            System.out.println("Pivot element "+pivot);
+            System.out.println("Pivot element:"+pivot);
             
             int[] lowArr = new int[arr.length];
             int[] highArr = new int[arr.length];
@@ -156,8 +156,8 @@ public class HelloController {
                 
             }
             
-            System.out.println("low arr "+Arrays.toString(lowArr));
-            System.out.println("high arr "+Arrays.toString(highArr));
+            System.out.println("low arr :"+Arrays.toString(lowArr));
+            System.out.println("high arr :"+Arrays.toString(highArr));
             
             return "Quick Sort not fully ready less arr "+Arrays.toString(lowArr)+" Pivot "+pivot +" high arr "+Arrays.toString(highArr);
         }
