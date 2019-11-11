@@ -20,7 +20,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     public Docket helloApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select().apis(RequestHandlerSelectors.basePackage("hello.springboot"))
-                .paths(regex("/hello.*"))
+                //.paths(regex("/hello.*"))
                 .build();
              
     }
