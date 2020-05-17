@@ -9,6 +9,7 @@ How to run
 4. Access from browser http://${server.port.8080}
 5. e.g: http://node29.codenvy.io:34072/
 6. http://node29.codenvy.io:34072/swagger-ui.html#/hello-controller
+7. added json find
 
 commands 
 
