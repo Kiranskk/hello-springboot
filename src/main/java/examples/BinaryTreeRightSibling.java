@@ -3,6 +3,8 @@
  */
 package examples;
 
+import java.util.*;
+
 /**
  * @author test
  * 
@@ -34,18 +36,32 @@ package examples;
  */
 public class BinaryTreeRightSibling {
 
+	static NNode tempnode = null;
+	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		
-		NNode root = new NNode();
+		//2 level Tree 
+		NNode left = new NNode(2,new NNode(4),new NNode(5));
+		NNode right = new NNode(3, new NNode(6),new NNode(7));
+		NNode root = new NNode(1, left,right);
+		
+		//1 level Tree 
+//		NNode left = new NNode(2,null,null);
+//		NNode right = new NNode(3, null,null);
+//		NNode root = new NNode(1, left,right);
+		
+		//0 level only root
+		//NNode root = new NNode(1, null,null);
+		
 		
 		compute(root);
-		
-		
-		
-
+		if(root!=null)
+			System.out.println("Tree with Siblings:\n"+root.toString());		
+		else 
+			System.out.println("Test Failed Tree with Siblings root is null ");
 	}
 	
 	
@@ -55,9 +71,16 @@ public class BinaryTreeRightSibling {
 	 */
 	static void compute(NNode node){
 		
+		 
+		
 		if(node!=null) {
 			
-			setRightSiblingDFS(node, 0);
+			//setRightSiblingDFS(node, 0);
+			
+			//setRightSiblingBFS(node, 0);
+			
+			setRightSiblingLinkedList(node, 0);
+			
 			
 		}
 		
@@ -71,19 +94,128 @@ public class BinaryTreeRightSibling {
 	 */
 	static void setRightSiblingDFS(NNode node, int level){
 		
-		if(level==0) {
-			//root right sibling is null
-			node.Sibling = null;
+		if(node==null) {
+			return;
 		}
 		
+		if(level==0) {
+			//root right sibling is null
+			node.sibling = null;
+		}
+		
+		if(node.right!=null && node.left!=null) {
+			node.left.sibling = node.right;
+		}
+		
+		if(level>=1 && node.right!=null) {
+			//for testing
+			node.right.sibling = new NNode(-1);
+			//tempnode = node.right;
+			
+			
+		}
+		
+		
 		//Right most nodes right siblings are null 
+		setRightSiblingDFS(node.left, level+1);
 		
 		setRightSiblingDFS(node.right, level+1);
 		
-		setRightSiblingDFS(node.right, level+1);
 		
 	}
 	
+	
+	/**
+	 * Level order of Binary tree using Breadth first Search 
+	 * @param node
+	 * @param level
+	 * working by using peek function
+	 */
+	static void setRightSiblingBFS(NNode node, int level){
+		
+		//TODO : add this check as node not equals 
+		if(node==null) return ;
+		
+		Queue<NNode> queue = new LinkedList<NNode>();
+		queue.add(node);
+		
+		while(!queue.isEmpty()) {
+		  
+		  int size = queue.size();
+		  
+		  for(int i=0;i<size;i++) {
+			  
+			  NNode current = queue.remove();
+			  
+			  //last Node set sibling to null
+			  if(i==size-1) {
+				  current.sibling = null;
+			  }
+			  
+			  if(level>=1) {
+				  NNode nxtNode = queue.peek();
+				  current.sibling = nxtNode;
+			  }
+			  
+			  if(current.left!=null) {
+				  queue.add(current.left);
+			  }
+			  
+			  if(current.right!=null) {
+				  queue.add(current.right);
+			  }
+			   
+		  }
+		  
+		  level++; 
+		
+		}
+		
+	}
+	
+	
+	static void setRightSiblingLinkedList(NNode node, int level){
+		
+		//TODO : add this check as node not equals 
+		if(node==null) return ;
+		
+		LinkedList<NNode> linkedlist = new LinkedList<NNode>();
+		linkedlist.add(node);
+		
+		while(!linkedlist.isEmpty()) {
+		  
+		  int size = linkedlist.size();
+		  
+		  for(int i=0;i<size;i++) {
+			  
+			  NNode current = linkedlist.remove();
+			  
+			  //last Node set sibling to null
+			  if(i==size-1) {
+				  current.sibling = null;
+			  }
+			  
+			  if(level>=1) {
+				  //NNode nxtNode = linkedlist.peek();
+				  NNode nxtNode = linkedlist.get(i+1);
+				  current.sibling = nxtNode;
+			  }
+			  
+			  if(current.left!=null) {
+				  linkedlist.add(current.left);
+			  }
+			  
+			  if(current.right!=null) {
+				  linkedlist.add(current.right);
+			  }
+			   
+		  }
+		  
+		  level++; 
+		
+		}
+		
+	}
 	
 	
 	
@@ -91,10 +223,34 @@ public class BinaryTreeRightSibling {
 }
 
 class NNode{
-	
+	//for testing
+	int val;
 	NNode left;
 	NNode right;
-	NNode Sibling=null;
+	NNode sibling=null;
+	
+	NNode(int val, NNode left, NNode right){
+		this.val = val;
+		this.left = left;
+		this.right = right;
+	}
+	
+	NNode(int val){
+		this.val = val;
+	}
+	
+	@Override
+	public String toString() {
+		//return "Node{\n val:" + val +",\n sibling=" + (sibling==null ? sibling : sibling.val) + ",\n left:" + left + ",\n right:" + right + "}";
+		return "{\n\"val\":" + val +",\n\"sibling\":" + (sibling==null ? sibling : sibling.val) + ",\n\"left\":" + left + ",\n\"right\":" + right + "\n}";
+	}
+	
+	
+//	NNode(NNode left,NNode right){
+//	this.left= left;
+//	this.right= right;
+//	}
+//	
 	
 }
 

@@ -22,8 +22,8 @@ public class Solution {
 		root.insert(5);
 		root.insert(7);
 		root.insert(9);
-		root.insert(1);
-		root.insert(20);
+		//root.insert(1);
+		//root.insert(20);
 		
 		
 		System.out.println("In Order Traversal ");
